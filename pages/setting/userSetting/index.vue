@@ -1,10 +1,10 @@
 <template>
-    <div class="container"> 
-        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'}]" :last="'chi tiêu'" />
+    <div class=""> 
+        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'},{title: 'Cài đặt',link:'/cai-dat'}]" :last="'danh sách người dùng'" />
     </div>
-    <div class="container mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
+    <div class="mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
         <div class="text text-main"> 
-            Quản lí chi tiêu
+            Danh sách người dùng
         </div>
         <div class="flex flex-col md:flex-row gap-10"> 
             <!-- <div class="border-2 rounded-xl flex flex-col gap-2 w-full md:w-1/4 p-4 pt-1">
@@ -38,10 +38,14 @@
 </template>
 
 <script setup lang="ts">
-import { getDatetoString } from '~/utils/dateTime';
-
+    definePageMeta({
+        layout: "setting"
+    })
     const { toggleLoadingModal } = useModalStore()
 
+    
+    
+    
     const show = () =>{
         const date = new Date()
         console.log(date.getMonth());

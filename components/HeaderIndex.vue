@@ -1,6 +1,6 @@
 <template>
     <div id="header" class="top-0 right-0 z-10 flex duration-300 flex-col w-full h-14 md:h-16">
-        <div class="container h-full flex items-center gap-1 md:gap-2">
+        <div class="container h-full flex items-center justify-between gap-1 md:gap-2">
             <nuxt-link to="/" class="min-w-fit h-full flex items-center justify-center text-white">
                 <!-- <img src="/img/logo-white.png" class="w-full h-full rounded-full" alt=""> -->
                 <NuxtImg class="h-full w-full" src="/img/logo.png" loading="lazy" />
@@ -22,6 +22,10 @@
                     </div> -->
                 </div>
             </div>
+            <!-- Đăng nhập -->
+            <div class="hidden md:flex items-center">
+                <nuxt-link to="/dang-nhap" class="text-[13px] md:text-[15px] font-semibold text-slate-100 text-nowrap bg-main p-1.5 px-2.5 rounded-full">Đăng nhập</nuxt-link>
+            </div>
             <!-- Chọn nền web -->
             <div class="min-w-fit h-full hidden md:flex bg-transparent items-center justify-center text-white">
                 <div class="p-4 relative group hover:bg-main/20 cursor-pointer">
@@ -38,7 +42,8 @@
                 </div>
             </div>
             <!-- menu mobile -->
-            <div class="min-w-fit ml-auto md:hidden"> 
+            <div class="min-w-fit flex flex-nowrap gap-1 items-center ml-auto md:hidden">
+                <nuxt-link to="/dang-nhap" class="text-[12px] font-semibold text-slate-100 text-nowrap bg-main p-1 px-2 rounded-full">Đăng nhập</nuxt-link>
                 <UIcon @click="menuMB = !menuMB" class="text-[26px] text-main hover:text-mainHover" name="i-mingcute-menu-fill" dynamic />
             </div>
         </div>

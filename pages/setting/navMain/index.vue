@@ -4,7 +4,7 @@
     </div>
     <div class="mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
         <div class="text text-main"> 
-            Quản lí seting website
+            Quản lí seting website nha
         </div>
         <div class="flex flex-col md:flex-row gap-10"> 
             <!-- <div class="border-2 rounded-xl flex flex-col gap-2 w-full md:w-1/4 p-4 pt-1">

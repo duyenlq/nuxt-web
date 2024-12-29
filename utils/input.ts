@@ -26,6 +26,26 @@ export function checkNull(value:any) {
   return ''
 }
 
+export function checkNull6(value:any) {
+  if(value.trim() == ''){
+    return 'Vui lòng không bỏ trống.'
+  }else if(value.length < 6){
+    return 'Vui lòng nhập hơn 6 ký tự.'
+  }
+  return ''
+}
+
+export function passConfirm(value:any, value2:any) {
+  if(value.trim() == ''){
+    return 'Vui lòng không bỏ trống.'
+  }else if(value.length < 6){
+    return 'Vui lòng nhập hơn 6 ký tự.'
+  }else if(value != value2){
+    return 'Vui lòng Nhập lại mật khẩu đúng.'
+  }  
+  return ''
+}
+
 export function checkPhone(value:any) {
   if(value.trim() == ''){
     return 'Vui lòng không bỏ trống.'
@@ -57,6 +77,11 @@ export function formTrim( value: any ) {
     value[key] = value[key].trim();
   });
   return value;
+}
+
+
+export function isObjectEmpty (obj: Record<string, string>) {
+  return Object.values(obj).every(value => value === '')
 }
 
 

@@ -62,6 +62,15 @@ export default defineNuxtConfig({
         if (route.path.includes('/navMain')) {
           route.path = route.path.replace('/navMain', '/menu-trang-chu')
         }
+        if (route.path.includes('/userSetting')) {
+          route.path = route.path.replace('/userSetting', '/danh-sach-nguoi-dung')
+        }
+        if (route.path.includes('/menuSetting')) {
+          route.path = route.path.replace('/menuSetting', '/menu-cai-dat')
+        }
+        if (route.path.includes('/login')) {
+          route.path = route.path.replace('/login', '/dang-nhap')
+        }
       })
     }
   },

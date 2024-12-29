@@ -4,7 +4,7 @@ export default defineAppConfig({
     gray: 'cool',
     danger: 'red',
     notifications: {
-      position: 'bottom-0 right-0 h-fit z-[1000]'
+      position: 'top-0 right-0 h-fit z-[1000]'
     },
     modal: {
       container: 'flex min-h-full items-center sm:items-center justify-center text-center'

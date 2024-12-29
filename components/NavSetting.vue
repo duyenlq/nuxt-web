@@ -16,8 +16,9 @@
                 </nuxt-link>
                 <p class="text-[16px] md:text-[24px]  font-semibold text-slate-50">Destiny luck</p>
             </div>
+            <!-- Danh sách menuSetting -->
             <div class="flex flex-col h-full overflow-y-auto scroll-cuttom-hidden rounded-md pl-0.5">
-                <nuxt-link v-for="items, index in listSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-white bg-main border-l-[3px] border-transparent hover:bg-slate-50/10 p-3 cursor-pointer">
+                <nuxt-link v-for="items, index in menuSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-white bg-main border-l-[3px] border-transparent hover:bg-slate-50/10 p-3 cursor-pointer">
                     {{ items.title }}
                 </nuxt-link>
             </div>
@@ -68,13 +69,25 @@
 </template>
 
 <script setup lang="ts">
-const listSetting = ref(
-    [
-        { id: '1', title: 'Cài đặt menu', link: 'menu', img: '', icon: '', active: true, menu: [] },
-        { id: '2', title: 'Cài đặt menu Trang chủ', link: 'menu-trang-chu', img: '', icon: '', active: true, menu: [] },
-        { id: '3', title: 'Cài đặt menu', link: 'menu', img: '', icon: '', active: false, menu: [] },
-    ]
-)
+const { toggleLoadingModal } = useModalStore()
+const { getMenuSetting } = useSettingStore() 
+
+const listSetting = ref([] as any)
+
+toggleLoadingModal(true)
+    await useAsyncData('getMenuSetting', ()=> getMenuSetting())
+    const { menuSetting } = storeToRefs(useSettingStore())
+    // console.log(menuSetting.value);
+toggleLoadingModal(false)
+
+// const listSetting = ref(
+//     [
+//         { id: '1', title: 'Cài đặt menu', link: 'menu', img: '', icon: '', active: true, menu: [] },
+//         { id: '2', title: 'Cài đặt menu Trang chủ', link: 'menu-trang-chu', img: '', icon: '', active: true, menu: [] },
+//         { id: '3', title: 'Danh sách người dùng', link: 'danh-sach-nguoi-dung', img: '', icon: '', active: true, menu: [] },
+//         { id: '9', title: 'Cài đặt menu cài đặt', link: 'menu-cai-dat', img: '', icon: '', active: true, menu: [] },
+//     ]
+// )
 const menuMB = ref(false)
 
 const currentTime = ref('');
