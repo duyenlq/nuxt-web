@@ -6,7 +6,7 @@
                 :value="props.modelValue" @input="funcInput($event?.target)">
         </label>
         <div class="mt-1 flex justify-end">
-            <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ errorValue }}</span>
+            <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ error }}</span>
         </div>
     </div>
 
@@ -41,7 +41,7 @@ const props = defineProps({
 })
 
 const emitValue = defineEmits(['update:modelValue', 'update:error']);
-const errorValue = ref('');
+// const errorValue = ref('');
 const funcInput = (value: any) => {
     // console.log("Đang nhập dữu liệu!", value?.value);
     emitValue('update:modelValue', value?.value);
@@ -51,12 +51,15 @@ const funcInput = (value: any) => {
 }
 
 const check = ( value: any )=>{
-    errorValue.value = checkNull6(value);
+    // errorValue.value = checkNull6(value);
     emitValue('update:error', checkNull6(value));
 }
 
 watch(() => props.checkValue, (value) => {
-    check(props.modelValue);
+    if(props.error == '' || props.error == null){
+        check(props.modelValue);
+    }
+    
 });
 
 </script>

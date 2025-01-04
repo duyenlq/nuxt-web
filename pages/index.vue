@@ -3,7 +3,7 @@
         <!-- <p class="text-2xl font-bold">Trang chủ</p> -->
         <!-- <UIcon class="text-main text-[24px] hover:text-red-400 hover:cursor-pointer hover:scale-125 duration-500" name="i-mdi-like" dynamic /> -->
         <div class="flex justify-center">
-            <div class="absolute h-[90vh] container mx-auto bg-0 flex gap-1 flex-col justify-center"> 
+            <div class="absolute h-[95vh] md:h-[92vh] container mx-auto bg-0 flex gap-1 flex-col justify-center"> 
                 <p class="text-[88px] translate-x-0 font-bold text-main">LÊ QUỐC DUYÊN</p>
                 <p class="text-2xl font-medium text-sky-500/60 md:text-main">Xin Chào bạn đến với trang web của tôi ...</p>
             </div>
@@ -18,8 +18,9 @@
     definePageMeta({
         layout: "main"
     })
-    // const { id } = storeToRefs(useApiStore())
-    // console.log(id.value,'hiển thị các giá trị dữ liệu');
+
+    const { userLogin } = storeToRefs(useAuthStore())
+    // console.log(userLogin.value,'hiển thị user đã đăng nhập');
 </script>
 
 <style scoped>

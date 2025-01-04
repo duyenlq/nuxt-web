@@ -12,7 +12,7 @@
             </div>      
         </label> 
         <div class="mt-1 flex justify-end duration-150">
-            <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ errorValue }}</span>
+            <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ error }}</span>
         </div>        
     </div>
     
@@ -64,7 +64,7 @@
     const showPassword = ref(false);
 
     const emitValue = defineEmits(['update:modelValue', 'update:error']);
-    const errorValue = ref('');
+    // const errorValue = ref('');
     const funcInput = (value: any) => {
         // console.log("Đang nhập dữu liệu!", value?.value);
         emitValue('update:modelValue', value?.value);
@@ -76,18 +76,30 @@
     const check = ( value: any )=>{        
         if(props.confirmPassword){
             // console.log(props.confirmValue,'hiển thị pass trên');
-            
-            errorValue.value = passConfirm(value,props.confirmValue);
             emitValue('update:error', passConfirm(value,props.confirmValue));
-            
         }else{
-            errorValue.value = checkNull6(value);
             emitValue('update:error', checkNull6(value));  
         }
     }
 
+    // watch(() => props.confirmValue (value) => {
+    //     check(props.modelValue);
+    // });
+
+    if(props.confirmPassword){
+        watch(() => props.confirmValue, (value) => {
+            if(props.confirmValue != ''){
+                // console.log('đã chay code kiểm tra pass');                
+                check(props.modelValue);
+            }
+        });
+    }
+    
+
     watch(() => props.checkValue, (value) => {
-        check(props.modelValue);
+        if(props.error == '' || props.error == null){
+            check(props.modelValue);
+        }
     });
 </script>
 
