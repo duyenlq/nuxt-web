@@ -1,6 +1,6 @@
 <template>
     <div class=""> 
-        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'},{title: 'Cài đặt',link:'/cai-dat'}]" :last="'menu'" />
+        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'},{title: 'Cài đặt',link:'/cai-dat'}]" :last="'menu trang chủ'" />
     </div>
     <div class="mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
         <div class="text text-main"> 

@@ -44,7 +44,7 @@
             <!-- Đăng ký -->
             <div class="w-2/3 text text-slate-800 flex flex-col gap-1 justify-center items-center"> 
                 <p class="text-center">Nếu bạn chưa có tài khoản, vui lòng <b class="font-normal text-main underline cursor-pointer" @click="loginTab=false"> Đăng ký </b> để đăng nhập! </p>
-                <nuxt-link to="/" class="text-[12px] md:text-[14px] mt-1 cursor-pointer hover:text-main underline underline-offset-2 px-2">Quay về trang chủ</nuxt-link>
+                <div @click=" useRouter().back" class="text-[12px] md:text-[14px] mt-1 cursor-pointer hover:text-main underline underline-offset-2 px-2">Lùi lại trang trước.</div>
             </div>
             
         </div>
@@ -60,12 +60,16 @@
 </template>
 
 <script setup lang="ts">
-    import { isObjectEmpty } from '~/utils/input';
+    import type { User } from "@/models/user"
     const { toggleLoadingModal } = useModalStore()
     const { setUserLogin, addUsers, getUsersById  } = useAuthStore()
-    const { userLogin } = storeToRefs(useAuthStore())
+    // const { userLogin } = storeToRefs(useAuthStore())
 
     const authCookie = useCookie('authCookie',{maxAge: 60 * 60 * 4, path: '/'})
+    const nextPath = sessionStorage.getItem('nextPath');
+    if(nextPath)sessionStorage.removeItem('nextPath');
+    // console.log("Hiển thị đường dẫn khi đăng nhập thành công",nextPath);
+    
 
     definePageMeta({
         layout: "login"
@@ -107,7 +111,7 @@ const loginWebsie = (value : any) => {
     // user.value = JSON.parse(data); //get ra
     authCookie.value = value;
     setUserLogin(value);
-    navigateTo('/');
+    navigateTo(nextPath?nextPath:'/');
 }; 
 
 const handleLogin = async () => {   
@@ -124,9 +128,9 @@ const handleLogin = async () => {
 
     toggleLoadingModal(true)
     
-    const { data } : any = await useAsyncData('getUserById', ()=> getUsersById(formData.username))
+    const { data } = await useAsyncData<User>('getUserById', ()=> getUsersById(formData.username))
 
-    if(data.value){
+    if(data.value && data.value.active){
         if(data.value.password == formData.password ){
             useToast().add({ title: 'Thông báo!' , description: 'Đăng nhập thành công!', color: 'green', timeout:1000 })
             loginWebsie(data.value);
@@ -149,16 +153,20 @@ const handleRegister = async () => {
         return ;
     }
 
-    const formData = {            
+    const formData: User = {            
         id: formRegister.value.id,
         username: formRegister.value.id,
         password: formRegister.value.password,
         image:'',
-        role: 'user',
+        role: {
+            id: 3,
+            title: 'user'
+        },
+        active : false,
     }
 
     toggleLoadingModal(true)
-    const { data } : any = await useAsyncData('getUserById', ()=> getUsersById(formData.id))
+    const { data } = await useAsyncData<User>('getUserById', ()=> getUsersById(formData.id))
     if(data.value){
         formRegisterError.value.id = "Tên đăng nhập đã tồn tại."
         useToast().add({ title: 'Đăng ký thất bại!' , description: 'Vui lòng đổi lại tên đăng ký!', color: 'red' });

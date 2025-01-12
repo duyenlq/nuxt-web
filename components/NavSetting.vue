@@ -3,14 +3,19 @@
         <div class="min-w-fit md:hidden"> 
             <UIcon @click="menuMB = !menuMB" class="text-[26px] text-white hover:text-mainHover" name="i-mingcute-menu-fill" dynamic />
         </div>
-        <div class="text-white">(admin) Duyên lê</div>
-        <!-- <NuxtImg src="/img/" /> -->
+        <div class="flex items-center gap-2">
+            
+            <div class="text-white text-[14px] md:text-[18px]">({{ userLogin?.role?.title }}) {{ userLogin?.username }} </div>
+            <div class="h-10 border-2 rounded-full">
+                <NuxtImg class="w-full h-full" src="/img/logo-white.png" />
+            </div>
+        </div>        
     </div>
     <div class="hidden md:block w-[20%] h-screen bg-gradient-to-br from-main to-sky-200 sticky z-20 inset-0">
         <div class="h-full w-full flex flex-col gap-0.5">
-            <div class="flex items-center flex-nowrap gap-1 md:gap-2 p-2 py-3 md:p-3 md:py-4 border-b-2">
+            <div class="flex items-center flex-nowrap gap-1 md:gap-2 p-2 py-3 md:p-3 md:py-3.5 border-b-2">
                 <nuxt-link to="/"
-                    class="w-[60px] h-[60px] flex items-center justify-center text-white border-2 rounded-full">
+                    class="w-[50px] h-[50px] flex items-center justify-center text-white border-2 rounded-full">
                     <!-- <img src="/img/logo-white.png" class="w-full h-full rounded-full" alt=""> -->
                     <NuxtImg class="h-full w-full" src="/img/logo-white.png" loading="lazy" />
                 </nuxt-link>
@@ -70,7 +75,9 @@
 
 <script setup lang="ts">
 const { toggleLoadingModal } = useModalStore()
-const { getMenuSetting } = useSettingStore() 
+const { getMenuSetting } = useSettingStore()
+
+const { userLogin } =  storeToRefs(useAuthStore())
 
 const listSetting = ref([] as any)
 

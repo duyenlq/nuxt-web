@@ -18,6 +18,10 @@ body {
     @apply text-[13px] sm:text-[13px] md:text-[14px] lg:text-[15x] xl:text-[16px] leading-[16px] sm:leading-[17px] md:leading-[18px] lg:leading-[19px] xl:leading-[20px]
 }
 
+.textTitle{
+    @apply text-[16px] sm:text-[17px] md:text-[18px] lg:text-[19x] xl:text-[20px] leading-[16px] sm:leading-[17px] md:leading-[18px] lg:leading-[19px] xl:leading-[20px] font-semibold
+}
+
 /* .router-link-active{
     @apply text-mainHover/80
 } */

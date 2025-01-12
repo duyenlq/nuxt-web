@@ -2,8 +2,7 @@
     <div class="flex flex-col">
         <label class="flex flex-col">
             <div for="" class="labelInput">{{ props.label }}</div>
-            <input :type="props.type" :placeholder="props.placeholder" class="inputClass"
-                :value="props.modelValue" @input="funcInput($event?.target)">
+            <input :type="props.type" :placeholder="props.placeholder" :readonly="props.readonly" class="inputClass" :class="{'!bg-slate-300/30':props.readonly}" :value="props.modelValue" @input="funcInput($event?.target)">
         </label>
         <div class="mt-1 flex justify-end">
             <span class="text-[10px] md:text-[14px] font-thin italic text-red-400">{{ error }}</span>
@@ -38,6 +37,11 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    readonly: {
+        type: Boolean,
+        default: false,
+        required: false,
+    },
 })
 
 const emitValue = defineEmits(['update:modelValue', 'update:error']);
@@ -70,6 +74,6 @@ watch(() => props.checkValue, (value) => {
 }
 
 .inputClass {
-    @apply w-full outline-none border-b-2 border-slate-500/50 text-slate-500 text-[16px] bg-transparent
+    @apply w-full outline-none border-b-2 border-slate-500/50 text-slate-500 text-[16px] px-0.5 bg-transparent
 }
 </style>

@@ -23,11 +23,11 @@
                 </div>
             </div>
             <!-- Đăng nhập -->
-            <div class="hidden md:flex items-center">
-                <nuxt-link v-if="!userLogin.id" to="/dang-nhap" class="text-[13px] md:text-[15px] font-semibold text-slate-100 text-nowrap bg-main dark:bg-main/85 p-[5px] px-2.5 rounded-full">Đăng nhập</nuxt-link>
-                <div v-else class="flex gap-1 items-center relative"  @click="menuLogin = !menuLogin"> 
-                    <div class="text-[16px] text-center text-main/90 font-semibold cursor-pointer">{{ userLogin.username }}</div>
-                    <div class="w-full h-full flex items-center justify-center cursor-pointer">
+            <div class="hidden md:flex items-end min-w-fit justify-center">
+                <nuxt-link v-if="!isLoggedIn" to="/dang-nhap" class="text-[13px] md:text-[15px] font-semibold text-slate-100 text-nowrap bg-main dark:bg-main/85 p-[5px] px-2.5 rounded-full">Đăng nhập</nuxt-link>
+                <div v-else class="flex items-center gap-1 relative"  @click="menuLogin = !menuLogin"> 
+                    <div class="text-[16px] text-end text-main/90 font-semibold cursor-pointer text-nowrap truncate max-w-[180px]">{{ userLogin.username}}</div>
+                    <div class="w-fit h-full flex items-center justify-center cursor-pointer">
                         <UIcon class="text-[18px] text-main rotate-0 duration-150" :class="{'!rotate-180':menuLogin}" name="i-mingcute-down-fill" dynamic />
                     </div>
                     <!-- Menu tác vụ khi đã đăng nhập -->
@@ -57,7 +57,7 @@
             </div>
             <!-- menu mobile icon -->
             <div class="min-w-fit flex flex-nowrap gap-2 items-center ml-auto md:hidden">
-                <nuxt-link v-if="!userLogin.id" to="/dang-nhap" class="text-[12px] font-semibold text-slate-100 text-nowrap bg-main p-1 px-2 rounded-full">Đăng nhập</nuxt-link>
+                <nuxt-link v-if="!isLoggedIn" to="/dang-nhap" class="text-[12px] font-semibold text-slate-100 text-nowrap bg-main p-1 px-2 rounded-full">Đăng nhập</nuxt-link>
                 <UIcon @click="menuMB = !menuMB" class="text-[26px] text-main hover:text-mainHover" name="i-mingcute-menu-fill" dynamic />
             </div>
         </div>
@@ -84,7 +84,7 @@
                         </button>
                     </div>
                 </div>
-                <div v-if="userLogin.id" @click="logout(), menuMB = !menuMB" class="flex items-center gap-1 py-2 px-1 font-medium">
+                <div v-if="isLoggedIn" @click="logout(), menuMB = !menuMB" class="flex items-center gap-1 py-2 px-1 font-medium">
                     <UIcon class="text-[18px] text-slate-800 dark:text-white " name="i-icon-park-outline-logout" dynamic />
                     <div class="text-[13px]">Đăng Xuất</div>
                 </div>
@@ -116,17 +116,16 @@
         {id:'4', name:'sepia', value:'sepia', icon:'i-ci-coffee'},
     ])
 
-    const { userLogin } = storeToRefs(useAuthStore())
+    const { userLogin, isLoggedIn } = storeToRefs(useAuthStore())
     // console.log(userLogin.value,'hiển thị user đã đăng nhập');
-    
-    const { setUserLogin, isLoggedIn } = useAuthStore()
+    const { setUserLogin } = useAuthStore()
 
     const menuLogin = ref(false)
 
     const logout = () => {
         useCookie('authCookie').value = null;
-        setUserLogin({})
         menuLogin.value = false
+        setUserLogin({})        
     }
 
     onMounted(() => {

@@ -18,9 +18,6 @@
     definePageMeta({
         layout: "main"
     })
-
-    const { userLogin } = storeToRefs(useAuthStore())
-    // console.log(userLogin.value,'hiển thị user đã đăng nhập');
 </script>
 
 <style scoped>

@@ -109,6 +109,6 @@
     }
 
     .inputClass{
-        @apply w-full outline-none border-b-2 border-slate-500/50 text-slate-500 text-[16px] bg-transparent
+        @apply w-full outline-none border-b-2 border-slate-500/50 text-slate-500 text-[16px] px-0.5 bg-transparent
     }
 </style>

@@ -1,14 +1,14 @@
+import type { User } from "@/models/user"
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
-        userLogin: {} as any,
+        userLogin: {} as User,
     }),
 
-    getters: {
+    getters:{
         isLoggedIn: (state) => state.userLogin.id,
     },
 
     actions: {
-
         async setUserLogin(param : any) {
             try {
                 this.userLogin = param;
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('authStore', {
             } catch (error) {
                 console.error('Error loading get:', error);
             }
-        },
+        },        
 
         async getUsersById( param : any) {
             try {
@@ -53,9 +53,9 @@ export const useAuthStore = defineStore('authStore', {
             
         },
 
-        async updateUsers(param : any) {            
+        async updateUsers(param : any) {
             try {
-                updateFirebase('/user/list/'+ param.id, param)
+                updateFirebase('/users/list/'+ param.id, param)
             } catch (error) {
                 console.error('Error loading update:', error);
             }
@@ -63,7 +63,58 @@ export const useAuthStore = defineStore('authStore', {
 
         async deleteUsers(id: any) {            
             try {
-                removeFirebase('/user/list/'+ id)
+                removeFirebase('/users/list/'+ id)
+            } catch (error) {
+                console.error('Error loading delete:', error);
+            }
+        },
+
+        // role user
+        async getRoleUserList() {
+            try {
+                const data = await getFirebase('/users/role/');
+                // this.menu = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+                return data ? Object.keys(data).map(key => ({ ...data[key] })) : [];
+                // console.log(this.menu, 'Hiển thị menu đã get');
+                
+            } catch (error) {
+                console.error('Error loading get:', error);
+            }
+        },        
+
+        async getRoleUserById( param : any) {
+            try {
+                const dataUser = await getFirebase('/users/role/'+ param );
+                // this.menu = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+                // return data ? Object.keys(data).map(key => ({ ...data[key] })) : [];
+                // console.log(dataUser, 'Hiển thị user đã get');
+                return dataUser;
+                
+            } catch (error) {
+                console.error('Error loading get:', error);
+            }
+        },
+
+        async addRoleUser(param : any) {
+            try {
+                setFirebase('/users/role/'+ param.id, param)
+            } catch (error) {
+                console.error('Error loading add:', error);
+            }
+            
+        },
+
+        async updateRoleUser(param : any) {
+            try {
+                updateFirebase('/users/role/'+ param.id, param)
+            } catch (error) {
+                console.error('Error loading update:', error);
+            }
+        },
+
+        async deleteRoleUser(id: any) {            
+            try {
+                removeFirebase('/users/role/'+ id)
             } catch (error) {
                 console.error('Error loading delete:', error);
             }
