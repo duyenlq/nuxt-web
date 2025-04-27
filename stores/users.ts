@@ -5,7 +5,7 @@ export const useAuthStore = defineStore('authStore', {
     }),
 
     getters:{
-        isLoggedIn: (state) => state.userLogin.id,
+        isLoggedIn: (state) => state.userLogin.id || useCookie<User>('authCookie').value?useCookie<User>('authCookie').value.id:'',
     },
 
     actions: {

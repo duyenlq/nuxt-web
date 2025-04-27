@@ -114,7 +114,7 @@ const loginWebsie = (value : any) => {
     navigateTo(nextPath?nextPath:'/');
 }; 
 
-const handleLogin = async () => {   
+const handleLogin = async () => {
         
     checkFormLogin.value = !checkFormLogin.value;
     if(!isObjectEmpty(formLoginError.value)){

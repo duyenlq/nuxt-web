@@ -71,6 +71,9 @@ export default defineNuxtConfig({
         if (route.path.includes('/login')) {
           route.path = route.path.replace('/login', '/dang-nhap')
         }
+        if (route.path.includes('/profile')) {
+          route.path = route.path.replace('/profile', '/thong-tin-ca-nhan')
+        }
       })
     }
   },

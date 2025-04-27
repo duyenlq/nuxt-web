@@ -1,4 +1,5 @@
 <template>
+    <!-- màn hình web -->
     <div class="sticky flex justify-between md:justify-end top-0 right-0 w-full bg-gradient-to-l from-main to-sky-200 p-4 z-10 h-16">
         <div class="min-w-fit md:hidden"> 
             <UIcon @click="menuMB = !menuMB" class="text-[26px] text-white hover:text-mainHover" name="i-mingcute-menu-fill" dynamic />
@@ -19,13 +20,16 @@
                     <!-- <img src="/img/logo-white.png" class="w-full h-full rounded-full" alt=""> -->
                     <NuxtImg class="h-full w-full" src="/img/logo-white.png" loading="lazy" />
                 </nuxt-link>
-                <p class="text-[16px] md:text-[24px]  font-semibold text-slate-50">Destiny luck</p>
+                <p class="text-[16px] md:text-[24px]  font-semibold text-slate-50"> {{ userLogin?.username }} </p>
             </div>
             <!-- Danh sách menuSetting -->
             <div class="flex flex-col h-full overflow-y-auto scroll-cuttom-hidden rounded-md pl-0.5">
-                <nuxt-link v-for="items, index in menuSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-white bg-main border-l-[4px] border-transparent hover:bg-slate-50/10 p-3 cursor-pointer">
-                    {{ items.title }}
+                <nuxt-link :to="`/thong-tin-ca-nhan`" class="text text-white bg-main border-l-[4px] border-transparent hover:bg-slate-50/10 p-3 cursor-pointer">
+                    Thông tin cá nhân
                 </nuxt-link>
+                <!-- <nuxt-link v-for="items, index in menuSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-white bg-main border-l-[4px] border-transparent hover:bg-slate-50/10 p-3 cursor-pointer">
+                    {{ items.title }} 
+                </nuxt-link> -->
             </div>
             <div class="flex items-center gap-1 text-white p-2 border-t-2 border-slate-100">
                 <UIcon class="text-[14px] md:text-[20px]" name="material-symbols:nest-clock-farsight-analog-outline-rounded" dynamic />
@@ -48,7 +52,7 @@
 
         </div>
     </USlideover> -->
-
+    <!-- màn hình mobile -->
     <div class="fixed z-20 flex justify-end top-0 left-0 bg-transparent w-full h-full duration-100 invisible" :class="{'!visible':menuMB}"> 
         <div class="fixed z-[-1] w-full h-full bg-slate-200/80 dark:bg-slate-800/80 duration-150" @click="menuMB = !menuMB">
             </div>
@@ -64,9 +68,12 @@
                     </div>
                 </div>
                 <div class="flex flex-col">
-                    <nuxt-link @click="menuMB=false" v-for="items, index in menuSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-main bg-slate-50 border-r-[4px] border-transparent p-3 cursor-pointer">
-                        {{ items.title }}
+                    <nuxt-link @click="menuMB=false" to="/thong-tin-ca-nhan" class="text text-main bg-slate-50 border-r-[4px] border-transparent p-3 cursor-pointer">
+                        Thông tin cá nhân
                     </nuxt-link>
+                    <!-- <nuxt-link @click="menuMB=false" v-for="items, index in menuSetting" :key="index" :to="`/cai-dat/${items.link}`" v-show="items.active" class="text text-main bg-slate-50 border-r-[4px] border-transparent p-3 cursor-pointer">
+                        {{ items.title }}
+                    </nuxt-link> -->
                 </div>
             </div>
         </div>

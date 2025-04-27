@@ -150,7 +150,7 @@
         const { data }: any = await useAsyncData('getUserList', ()=> getUsersList())
         if(data.value.length > 0){
             userList.value = data.value
-            console.log(userList.value,"Hiển thị danh sách user đã get");
+            // console.log(userList.value,"Hiển thị danh sách user đã get");
             
         }else{
             useToast().add({ title: 'Thông báo' , description: 'Danh sách hiện tại đang trống', color: 'yellow', timeout:1000 });

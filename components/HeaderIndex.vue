@@ -33,7 +33,7 @@
                     <!-- Menu tác vụ khi đã đăng nhập -->
                     <div class="absolute z-50 bg-slate-50/70 dark:bg-slate-800/70 top-[140%] right-0 w-fit min-w-[150px] rounded-md dark:border-slate-400 duration-200 overflow-hidden h-auto scale-0 origin-top-right" :class="{'!scale-100':menuLogin || !userLogin }"> 
                         <div class="flex flex-col items-center border-2 border-slate-100 dark:border-slate-400/70 rounded-lg ">
-                            <nuxt-link to="/cai-dat" class="h-[40px] w-full flex items-center px-3 text-nowrap text cursor-pointer text-main hover:text-white hover:bg-main/70 dark:text-slate-100 rounded-t-md"> Cài đặt thông tin cá nhân </nuxt-link>
+                            <nuxt-link to="/thong-tin-ca-nhan" class="h-[40px] w-full flex items-center px-3 text-nowrap text cursor-pointer text-main hover:text-white hover:bg-main/70 dark:text-slate-100 rounded-t-md"> Cài đặt thông tin cá nhân </nuxt-link>
                             <div class="border-t-[1px] border-slate-300/60 dark:border-slate-100/80 w-[90%]"></div>
                             <div @click="logout()" class="h-[40px] w-full flex items-center px-3 text-nowrap text cursor-pointer text-main hover:text-white hover:bg-main/70 dark:text-slate-100 rounded-b-md">Đăng xuất</div>
                         </div>
@@ -92,7 +92,10 @@
                     
                     <nuxt-link v-for="item,index in menu" :key="index" :to="`/${ item.link }`" @click="menuMB = !menuMB" class="py-3 px-1 font-medium border-b-2">
                         {{ item.title }}
-                    </nuxt-link>                    
+                    </nuxt-link>
+                    <nuxt-link v-if="isLoggedIn" to="thong-tin-ca-nhan" @click="menuMB = !menuMB" class="py-3 px-1 font-medium border-b-2">
+                        Thông tin cá nhân
+                    </nuxt-link>             
                 </div>
                 <div class="flex bg-main/10 border-t-2 mt-auto ">                   
                     <div v-for="item,index in listColorMode" :key="index" class="w-full text-center py-3 text-main hover:text-mainHover dark:hover:text-main cursor-pointer" @click="$colorMode.preference=item.value"> 

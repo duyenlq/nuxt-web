@@ -59,7 +59,7 @@ const funcInput = (value: any) => {
         emitValue('update:modelValue', value.value);
     }
     
-    check(value?.value);
+    check(value?.value +'');
 }
 
 const check = ( value: any )=>{
