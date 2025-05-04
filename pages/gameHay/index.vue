@@ -28,6 +28,7 @@
             { id: '1', title: 'Cờ caro', link: 'co-caro', img: 'banner5.jpg', menu: []},
             { id: '2', title: 'Cờ caro online', link: 'co-caro-online', img: 'banner4.jpg', menu: []},
             { id: '3', title: 'Game Pokemon', link: 'game-pk', img: 'banner3.jpg', menu: []},
+            { id: '3', title: 'Game thẻ bài', link: 'card', img: 'logo_card.PNG', menu: []},
         ]
     )
 </script>

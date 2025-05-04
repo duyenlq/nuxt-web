@@ -7,32 +7,6 @@
             Quản lí chi tiêu
         </div>
         <div class="flex flex-col md:flex-row gap-10"> 
-            <!-- <div class="border-2 rounded-xl flex flex-col gap-2 w-full md:w-1/4 p-4 pt-1">
-                <p class="text font-medium">Thông tin : </p>
-                <input v-model="user.id" type="text" class="border-2 px-2 p-1 outline-none focus:border-main" placeholder="ID">
-                <input v-model="user.name" type="text" class="border-2 px-2 p-1 outline-none focus:border-main" placeholder="Name">
-                <input v-model="user.value" type="text" class="border-2 px-2 p-1 outline-none focus:border-main" placeholder="Value">
-                <button v-if="editValue" @click="setData()" class="bg-main p-2 rounded-md">
-                    Sửa
-                </button>
-                <button v-else @click="setData()" class="bg-main p-2 rounded-md">
-                    Thêm
-                </button>
-            </div> -->
-            <div class="border-2 rounded-xl w-full pb-4 pt-1"> 
-                <p class="text font-medium px-4">Danh sách : </p>
-                <div class="h-full p-2 px-4"> 
-                    <div v-for="items,index in userList" :key="index" :class="{'border-b-2':index == userList.length-1}" class="flex items-center hover:bg-slate-200/50 cursor-pointer duration-300 border-t-2 p-1">
-                        <div class="w-1/6 text">{{ items.id }}</div>
-                        <div class="w-1/6 text">{{ items.username }}</div>
-                        <div class="w-3/6 text">{{ items.value }}</div>
-                        <div class="w-1/6 flex gap-2">
-                            <button  class="text border-slate-200 border-2 p-1 rounded-lg hover:bg-main duration-300">edit</button>
-                            <button @click="show()" class="text border-slate-200 border-2 p-1 rounded-lg hover:bg-main duration-300">delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>

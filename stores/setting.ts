@@ -4,6 +4,10 @@ export const useSettingStore = defineStore('settingStore', {
         menuSetting: [] as any,
     }),
 
+    getters:{
+        getMenuNha: (state) => state.menu,
+    },
+
     actions: {
         // menu main website
         async getMenu() {

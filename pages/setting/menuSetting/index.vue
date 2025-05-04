@@ -1,9 +1,9 @@
 <template>
     <div class=""> 
-        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'},{title: 'Cài đặt',link:'/cai-dat'}]" :last="'menu'" />
+        <Breadcrumb :first="[{title: 'Trang chủ',link:'/'},{title: 'Cài đặt',link:'/cai-dat'}]" :last="'menu cài đặt'" />
     </div>
     <div class="mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
-        <div class="text text-main"> 
+        <div class="text text-main font-semibold"> 
             Quản lý menu setting website
         </div>
         <div class="flex flex-col">

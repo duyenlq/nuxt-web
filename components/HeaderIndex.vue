@@ -23,8 +23,22 @@
                 </div>
             </div>
             <!-- Đăng nhập -->
-            <div class="hidden md:flex items-center">
-                <nuxt-link to="/dang-nhap" class="text-[13px] md:text-[15px] font-semibold text-slate-100 text-nowrap bg-main p-1.5 px-2.5 rounded-full">Đăng nhập</nuxt-link>
+            <div class="hidden md:flex items-end min-w-fit justify-center">
+                <nuxt-link v-if="!isLoggedIn" to="/dang-nhap" class="text-[13px] md:text-[15px] font-semibold text-slate-100 text-nowrap bg-main dark:bg-main/85 p-[5px] px-2.5 rounded-full">Đăng nhập</nuxt-link>
+                <div v-else class="flex items-center gap-1 relative"  @click="menuLogin = !menuLogin"> 
+                    <div class="text-[16px] text-end text-main/90 font-semibold cursor-pointer text-nowrap truncate max-w-[180px]">{{ userLogin.username}}</div>
+                    <div class="w-fit h-full flex items-center justify-center cursor-pointer">
+                        <UIcon class="text-[18px] text-main rotate-0 duration-150" :class="{'!rotate-180':menuLogin}" name="i-mingcute-down-fill" dynamic />
+                    </div>
+                    <!-- Menu tác vụ khi đã đăng nhập -->
+                    <div class="absolute z-50 bg-slate-50/70 dark:bg-slate-800/70 top-[140%] right-0 w-fit min-w-[150px] rounded-md dark:border-slate-400 duration-200 overflow-hidden h-auto scale-0 origin-top-right" :class="{'!scale-100':menuLogin || !userLogin }"> 
+                        <div class="flex flex-col items-center border-2 border-slate-100 dark:border-slate-400/70 rounded-lg ">
+                            <nuxt-link to="/thong-tin-ca-nhan" class="h-[40px] w-full flex items-center px-3 text-nowrap text cursor-pointer text-main hover:text-white hover:bg-main/70 dark:text-slate-100 rounded-t-md"> Cài đặt thông tin cá nhân </nuxt-link>
+                            <div class="border-t-[1px] border-slate-300/60 dark:border-slate-100/80 w-[90%]"></div>
+                            <div @click="logout()" class="h-[40px] w-full flex items-center px-3 text-nowrap text cursor-pointer text-main hover:text-white hover:bg-main/70 dark:text-slate-100 rounded-b-md">Đăng xuất</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Chọn nền web -->
             <div class="min-w-fit h-full hidden md:flex bg-transparent items-center justify-center text-white">
@@ -41,9 +55,9 @@
                     </div>
                 </div>
             </div>
-            <!-- menu mobile -->
-            <div class="min-w-fit flex flex-nowrap gap-1 items-center ml-auto md:hidden">
-                <nuxt-link to="/dang-nhap" class="text-[12px] font-semibold text-slate-100 text-nowrap bg-main p-1 px-2 rounded-full">Đăng nhập</nuxt-link>
+            <!-- menu mobile icon -->
+            <div class="min-w-fit flex flex-nowrap gap-2 items-center ml-auto md:hidden">
+                <nuxt-link v-if="!isLoggedIn" to="/dang-nhap" class="text-[12px] font-semibold text-slate-100 text-nowrap bg-main p-1 px-2 rounded-full">Đăng nhập</nuxt-link>
                 <UIcon @click="menuMB = !menuMB" class="text-[26px] text-main hover:text-mainHover" name="i-mingcute-menu-fill" dynamic />
             </div>
         </div>
@@ -56,8 +70,13 @@
             </div>
             <div class="w-[80%] absolute top-0 right-[-100%] h-full flex flex-col bg-white dark:bg-gray-900/90 duration-500" :class="{'!right-0':menuMB}">
                 <div class="flex items-center justify-between bg-gradient-to-l from-main to-main/50 px-2"> 
-                    <div class="">
+                    <div class="min-w-fit">
                         <img class="h-14" src="/img/logo-white.png" alt="">
+                    </div>
+                    <div v-if="userLogin" class="w-full flex items-center font-medium text-/80 text-xl text-white/90 text-start  truncate">
+                        <div class="w-full h-full flex gap-2 items-center justify-star cursor-pointer">
+                            {{ userLogin.username }}
+                        </div>
                     </div>
                     <div>
                         <button @click="menuMB = !menuMB">
@@ -65,12 +84,20 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex flex-col px-1 border-t-2">
+                <div v-if="isLoggedIn" @click="logout(), menuMB = !menuMB" class="flex items-center gap-1 py-2 px-1 font-medium">
+                    <UIcon class="text-[18px] text-slate-800 dark:text-white " name="i-icon-park-outline-logout" dynamic />
+                    <div class="text-[13px]">Đăng Xuất</div>
+                </div>
+                <div class="flex flex-col px-1 border-t-2 overflow-y-auto">
+                    
                     <nuxt-link v-for="item,index in menu" :key="index" :to="`/${ item.link }`" @click="menuMB = !menuMB" class="py-3 px-1 font-medium border-b-2">
                         {{ item.title }}
                     </nuxt-link>
+                    <nuxt-link v-if="isLoggedIn" to="thong-tin-ca-nhan" @click="menuMB = !menuMB" class="py-3 px-1 font-medium border-b-2">
+                        Thông tin cá nhân
+                    </nuxt-link>             
                 </div>
-                <div class="flex bg-main/10 border-t-2 mt-auto">
+                <div class="flex bg-main/10 border-t-2 mt-auto ">                   
                     <div v-for="item,index in listColorMode" :key="index" class="w-full text-center py-3 text-main hover:text-mainHover dark:hover:text-main cursor-pointer" @click="$colorMode.preference=item.value"> 
                         <UIcon class="text-[24px]" :name="item.icon" dynamic />
                     </div>
@@ -92,47 +119,45 @@
         {id:'4', name:'sepia', value:'sepia', icon:'i-ci-coffee'},
     ])
 
-    // const listMenu = ref([
-    //     {id: '1', title: 'Trang chủ', link: '', icon: '', menu: []},
-    //     {id: '2', title: 'Tiện ích', link: 'tien-ich', icon: '', menu: []},
-    //     {id: '3', title: 'Game hay', link: 'game-hay', icon: '', menu: [
-    //         // { id: '3-1', title: 'Cờ caro', link: 'co-caro', icon: '', menu: []},
-    //         // { id: '3-2', title: 'Cờ caro online', link: 'co-caro-online', icon: '', menu: []},
-    //         // { id: '3-3', title: 'Game PK', link: 'game-pk', icon: '', menu: []},
-    //     ]},
-    //     {id: '4', title: 'Thống kê', link: 'chi-tieu', icon: '', menu: []},
-    //     {id: '5', title: 'Trang test', link: '', icon: '', menu: []},
-    //     // {id: '4', title: '', link: '', icon: '', menu: []},
-    //     // {id: '5', title: '', link: '', icon: '', menu: []},
-    // ])
+    const { userLogin, isLoggedIn } = storeToRefs(useAuthStore())
+    // console.log(userLogin.value,'hiển thị user đã đăng nhập');
+    const { setUserLogin } = useAuthStore()
+
+    const menuLogin = ref(false)
+
+    const logout = () => {
+        useCookie('authCookie').value = null;
+        menuLogin.value = false
+        setUserLogin({})        
+    }
 
     onMounted(() => {
-    const header = document.getElementById('header') as HTMLElement;
-    const onTop = document.getElementById('onTop') as HTMLElement;
-    window.onscroll = () => {
-        // if(document.documentElement.scrollTop < 20){
-        //     header.classList.remove('fixed')
-        //     // header.classList.remove('bg-main/80')
-        //     header.classList.add('sticky')
-        //     headerScroll.value = false
-            
-        // }else {
-        //     header.classList.remove('sticky')
-        //     header.classList.add('fixed')
-        //     // header.classList.add('bg-main/80')
-        //     headerScroll.value = true
-        // }
+        const header = document.getElementById('header') as HTMLElement;
+        const onTop = document.getElementById('onTop') as HTMLElement;
+        window.onscroll = () => {
+            // if(document.documentElement.scrollTop < 20){
+            //     header.classList.remove('fixed')
+            //     // header.classList.remove('bg-main/80')
+            //     header.classList.add('sticky')
+            //     headerScroll.value = false
+                
+            // }else {
+            //     header.classList.remove('sticky')
+            //     header.classList.add('fixed')
+            //     // header.classList.add('bg-main/80')
+            //     headerScroll.value = true
+            // }
 
-        // hiển thị on-top
-        if(document.documentElement.scrollTop > 10){
-            onTop.classList.remove('!invisible')
-            // onTop.classList.add('visible')
-        }else{
-            onTop.classList.add('!invisible')
-            // onTop.classList.remove('visible')
+            // hiển thị on-top
+            if(document.documentElement.scrollTop > 10){
+                onTop.classList.remove('!invisible')
+                // onTop.classList.add('visible')
+            }else{
+                onTop.classList.add('!invisible')
+                // onTop.classList.remove('visible')
+            }
         }
-    } 
-});
+    });
 </script>
 
 <style scoped>

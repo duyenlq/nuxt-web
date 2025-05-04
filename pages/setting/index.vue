@@ -1,24 +1,23 @@
 <template>
     <div class="">
-        <Breadcrumb :first="[{ title: 'Trang chủ', link: '/' }]" :last="'cài đặt'" />
+        <Breadcrumb :first="[{ title: 'Trang chủ', link: '/' }]" :last="'cài đặt thông tin cá nhân'" />
     </div>
-    <div class="mt-2 mb-4 md:mt-4 flex flex-col gap-2 md:gap-4">
-        <div class="text text-main">
-            Quản lí seting website
+    <div class="flex flex-nowrap min-h-[500px] bg-main/20">
+        <div class="flex w-1/2 bg-main/50 h-fit"> 
+            <div class="textTitle text-main dark:text-white">Thông tin cá Nhân</div>
         </div>
-        <div>
-            <FormInputCustom :label="'Tên đăng nhập'" type="text" v-model:modelValue="modelValue" v-model:modelError="modelError" />
-            value: {{ modelValue }}
-            <p>
-                error: {{ modelError }}
-            </p>
+        <div class="flex w-1/2 bg-main/20 h-fit">
+            <div class="text font-semibold text-main dark:text-white"> 
+                Nơi ảnh :
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    layout: "setting"
+    middleware: 'auth',
+    layout: "setting",
 })
 
 
