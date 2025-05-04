@@ -1,5 +1,5 @@
 export interface Role{
-    id: string | number,
+    id: string,
     title: string,
 }
 
@@ -21,5 +21,11 @@ export interface User{
         twitter?: string;
         facebook?: string;
         instagram?: string;
+    };
+    money?: {
+        cash?: Number;  
+        silver?: Number;
+        gold?: Number;
+        diamond?: Number;
     };
 }

@@ -159,10 +159,16 @@ const handleRegister = async () => {
         password: formRegister.value.password,
         image:'',
         role: {
-            id: 3,
+            id: '2',
             title: 'user'
         },
         active : false,
+        money: {
+            cash: 100000,
+            silver: 0,
+            gold: 0,
+            diamond: 0,
+        },
     }
 
     toggleLoadingModal(true)

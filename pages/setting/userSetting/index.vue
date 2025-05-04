@@ -14,6 +14,9 @@
                 <button @click="modal = true" class="font-semibold text-white bg-main rounded-lg p-2 md:px-3 text duration-300 hover:shadow-md shadow-black hover:scale-105">Thêm dữ liệu</button>
             </div>
             <UTable :rows="userList" :columns="columnsTitle">
+                <template #password-data="{ row }">
+                    <div class="font-medium">{{ maskPass(row.password) }}</div>
+                </template>
                 <template #active-data="{ row }">
                     <div class="font-medium" :class="{'text-main': row.active}">{{ row.active? " Hoạt động ":" Tạm dừng " }}</div>
                 </template>
@@ -92,16 +95,20 @@
         {
         key: 'id',
         label: 'Tên đăng nhập'
-        },{
-        key: 'username',
-        label: 'Họ Tên'
-        },{
+        },
+        {
             key: 'password',
             label: 'Mật khẩu'
-        },{
+        },
+        {
+        key: 'username',
+        label: 'Họ Tên'
+        },
+        {
             key: 'role.title',
             label: 'Phân quyền'
-        },{
+        },
+        {
             key: 'active',
             label: 'Trạng thái'
         },{

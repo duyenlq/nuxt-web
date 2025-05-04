@@ -60,6 +60,15 @@ if(userLogin.value != null) {
             name: 'Quyền hạn',
             value: userLogin.value.role.title||"...........",
         },
+
+        {
+            name: 'Giá trị',
+            value: ( userLogin.value.money?.cash || 0 ).toLocaleString('vi-VN') +
+            ' vnđ / Bạc: ' + ( userLogin.value.money?.silver || 0).toLocaleString('vi-VN') +
+            ' / Vàng: ' + ( userLogin.value.money?.gold || 0).toLocaleString('vi-VN') +
+            ' / Kim Cương: ' + ( userLogin.value.money?.diamond || 0 ).toLocaleString('vi-VN')
+        },
+
         {
             name: 'Ngày tạo',
             value: userLogin.value.createdAt||"...........",
